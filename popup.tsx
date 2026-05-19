@@ -14,25 +14,12 @@ const OFFICIAL_WEBSITE_URL = "https://ask-llm-extension.vercel.app"
 
 function IndexPopup() {
   const [enabled, setEnabledState] = useState(false)
-  const [recording, setRecording] = useState(false)
+  const [busy, setBusy] = useState(false)
 
   useEffect(() => {
-    chrome.storage.local
-      .get(["askLlmEnabled", "askLlmApiKey"])
-      .then((result) => {
-        const savedApiKey =
-          typeof result.askLlmApiKey === "string"
-            ? result.askLlmApiKey.trim()
-            : ""
-        const hasApiKey = savedApiKey.length > 0
-
-        setRecording(hasApiKey)
-        setEnabledState(hasApiKey && result.askLlmEnabled === true)
-
-        if (!hasApiKey && result.askLlmEnabled === true) {
-          chrome.storage.local.set({ askLlmEnabled: false })
-        }
-      })
+    chrome.storage.local.get(["recordEnabled"]).then((result) => {
+      setEnabledState(result.recordEnabled === true)
+    })
 
     const handleStorageChange = (
       changes: Record<string, chrome.storage.StorageChange>,
@@ -42,25 +29,8 @@ function IndexPopup() {
         return
       }
 
-      if (changes.askLlmApiKey) {
-        const savedApiKey =
-          typeof changes.askLlmApiKey.newValue === "string"
-            ? changes.askLlmApiKey.newValue.trim()
-            : ""
-        const hasApiKey = savedApiKey.length > 0
-
-        setRecording(hasApiKey)
-
-        if (hasApiKey) {
-          return
-        }
-
-        setEnabledState(false)
-        chrome.storage.local.set({ askLlmEnabled: false })
-      }
-
-      if (changes.askLlmEnabled) {
-        setEnabledState(changes.askLlmEnabled.newValue === true)
+      if (changes.recordEnabled) {
+        setEnabledState(changes.recordEnabled.newValue === true)
       }
     }
 
@@ -72,14 +42,30 @@ function IndexPopup() {
   }, [])
 
   const setEnabled = async (value: boolean) => {
-    if (value && !recording) {
-      setEnabledState(false)
-      await chrome.storage.local.set({ askLlmEnabled: false })
-      chrome.runtime.openOptionsPage()
+    if (busy) {
       return
     }
-    setEnabledState(value)
-    await chrome.storage.local.set({ askLlmEnabled: value })
+
+    setBusy(true)
+
+    try {
+      const response = await chrome.runtime.sendMessage({
+        type: value ? "START_TAB_RECORDING" : "STOP_TAB_RECORDING"
+      })
+
+      if (!response?.ok) {
+        throw new Error(response?.error ?? "Recording command failed")
+      }
+
+      setEnabledState(value)
+      await chrome.storage.local.set({ recordEnabled: value })
+    } catch (error) {
+      console.error(error)
+      setEnabledState(false)
+      await chrome.storage.local.set({ recordEnabled: false })
+    } finally {
+      setBusy(false)
+    }
   }
 
   const openWebsite = () => {
@@ -127,6 +113,7 @@ function IndexPopup() {
             <button
               type="button"
               onClick={() => setEnabled(!enabled)}
+              disabled={busy}
               aria-checked={enabled}
               aria-label="Enable Ask LLM"
               role="switch"

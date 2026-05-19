@@ -24,8 +24,27 @@
     "typescript": "5.3.3"
   },
   "manifest": {
+    "permissions": [
+      "activeTab",
+      "downloads",
+      "offscreen",
+      "storage",
+      "tabCapture",
+      "tabs"
+    ],
     "host_permissions": [
       "https://*/*"
+    ],
+    "web_accessible_resources": [
+      {
+        "resources": [
+          "public/offscreen.html",
+          "public/offscreen.js"
+        ],
+        "matches": [
+          "<all_urls>"
+        ]
+      }
     ]
   }
 }
