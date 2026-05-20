@@ -12,6 +12,10 @@ export const getStyle = () => {
 
 const OFFICIAL_WEBSITE_URL = "https://ask-llm-extension.vercel.app"
 
+const debug = (...args: unknown[]) => {
+  console.debug("[record-and-save:popup]", ...args)
+}
+
 function IndexPopup() {
   const [enabled, setEnabledState] = useState(false)
   const [busy, setBusy] = useState(false)
@@ -47,11 +51,14 @@ function IndexPopup() {
     }
 
     setBusy(true)
+    debug("Recording switch changed", { enabled: value })
 
     try {
       const response = await chrome.runtime.sendMessage({
         type: value ? "START_TAB_RECORDING" : "STOP_TAB_RECORDING"
       })
+
+      debug("Recording command response", response)
 
       if (!response?.ok) {
         throw new Error(response?.error ?? "Recording command failed")
@@ -60,7 +67,7 @@ function IndexPopup() {
       setEnabledState(value)
       await chrome.storage.local.set({ recordEnabled: value })
     } catch (error) {
-      console.error(error)
+      console.error("[record-and-save:popup]", error)
       setEnabledState(false)
       await chrome.storage.local.set({ recordEnabled: false })
     } finally {
@@ -86,12 +93,8 @@ function IndexPopup() {
             className="ask-llm-logo-button"
             title="Open Ask LLM website"
             aria-label="Open Ask LLM website">
-            <img
-              src={chrome.runtime.getURL("assets/icon.png")}
-              alt=""
-              className="ask-llm-logo-image"
-            />
-            <span className="ask-llm-logo-text">Ask LLM</span>
+            <img src="assets/icon.png" alt="" className="ask-llm-logo-image" />
+            <span className="ask-llm-logo-text">Record</span>
           </button>
 
           <button
