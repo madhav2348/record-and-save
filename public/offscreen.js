@@ -4,7 +4,7 @@ let chunks = []
 const activeRecordingUrls = new Set()
 
 const debug = (...args) => {
-  console.debug("[record-and-save:offscreen]", ...args)
+  console.log("[record-and-save:offscreen]", ...args)
 }
 
 const warn = (...args) => {
@@ -169,8 +169,15 @@ const stopRecording = () => {
   stopTracks()
 }
 
+const isRecording = () => recorder?.state === "recording"
+
 chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
   debug("Received message", { type: message?.type })
+
+  if (message?.type === "OFFSCREEN_GET_RECORDING_STATUS") {
+    sendResponse({ ok: true, recording: isRecording() })
+    return false
+  }
 
   if (message?.type === "OFFSCREEN_REVOKE_RECORDING_URL") {
     revokeRecordingUrl(message.url, message.reason ?? "background-request")

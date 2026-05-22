@@ -4,9 +4,13 @@ body {
   background-color: transparent;
 }
 
-.ask-llm-popup,
-.ask-llm-options {
+.record-save-popup {
+  min-width: 340px;
+  margin: 0;
+  padding: 12px;
+  border: 0;
   color: #f5f5f5;
+  background: #3b3b3b;
   font-family:
     Inter,
     ui-sans-serif,
@@ -17,37 +21,24 @@ body {
     sans-serif;
 }
 
-.ask-llm-popup {
-  min-width: 340px;
-  margin: 0;
-  padding: 12px;
-  border: 0;
-  background: #3b3b3b;
-}
-
-.ask-llm-popup-stack,
-.ask-llm-form {
+.record-save-popup-stack {
   display: grid;
   gap: 12px;
 }
 
-.ask-llm-popup-header,
-.ask-llm-popup-panel,
-.ask-llm-switch-row,
-.ask-llm-options-header,
-.ask-llm-card-header,
-.ask-llm-form-footer,
-.ask-llm-history-meta {
+.record-save-popup-header,
+.record-save-popup-panel,
+.record-save-switch-row {
   display: flex;
   align-items: center;
 }
 
-.ask-llm-popup-header {
+.record-save-popup-header {
   justify-content: space-between;
   gap: 10px;
 }
 
-.ask-llm-logo-button {
+.record-save-logo-button {
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -59,26 +50,17 @@ body {
   line-height: 1;
 }
 
-.ask-llm-logo-image {
+.record-save-logo-image {
   width: 28px;
   height: 28px;
 }
 
-.ask-llm-logo-text {
+.record-save-logo-text {
   font-size: 16px;
   font-weight: 800;
 }
 
-.ask-llm-icon-button,
-.ask-llm-secondary-button,
-.ask-llm-primary-button {
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 12px;
-  font-weight: 700;
-}
-
-.ask-llm-icon-button {
+.record-save-icon-button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -86,13 +68,16 @@ body {
   height: 30px;
   padding: 0 8px;
   border: 1px solid #5f5f5f;
+  border-radius: 6px;
   color: #f5f5f5;
   background: #3b3b3b;
+  cursor: pointer;
   font-size: 11px;
+  font-weight: 700;
   line-height: 1;
 }
 
-.ask-llm-popup-panel {
+.record-save-popup-panel {
   justify-content: space-between;
   gap: 24px;
   padding: 12px 14px;
@@ -101,16 +86,22 @@ body {
   background: #242424;
 }
 
-.ask-llm-popup-title {
+.record-save-popup-title {
   font-size: 15px;
   font-weight: 700;
 }
 
-.ask-llm-switch-row {
+.record-save-popup-status {
+  margin-top: 3px;
+  color: #c7c7c7;
+  font-size: 12px;
+}
+
+.record-save-switch-row {
   gap: 8px;
 }
 
-.ask-llm-switch {
+.record-save-switch {
   position: relative;
   width: 40px;
   height: 22px;
@@ -123,11 +114,11 @@ body {
   transition: background 0.2s;
 }
 
-.ask-llm-switch.is-on {
+.record-save-switch.is-on {
   background: #f5f5f5;
 }
 
-.ask-llm-switch-thumb {
+.record-save-switch-thumb {
   position: absolute;
   top: 3px;
   left: 3px;
@@ -138,418 +129,33 @@ body {
   transition: transform 0.2s;
 }
 
-.ask-llm-switch.is-on .ask-llm-switch-thumb {
+.record-save-switch.is-on .record-save-switch-thumb {
   background: #3b3b3b;
   transform: translateX(18px);
 }
 
-.ask-llm-switch-state {
+.record-save-switch-state {
   width: 20px;
   color: #c7c7c7;
   font-size: 12px;
 }
 
-.ask-llm-options {
-  min-height: 100vh;
-  background: #303030;
-}
-
-.ask-llm-options-container {
-  max-width: 1120px;
-  margin: 0 auto;
-  padding: 28px 18px 40px;
-}
-
-.ask-llm-options-header {
-  justify-content: space-between;
-  gap: 12px;
-  margin-bottom: 18px;
-}
-
-.ask-llm-options-title {
-  margin: 0;
-  font-size: 24px;
-  line-height: 1.2;
-}
-
-.ask-llm-options-description {
-  margin: 5px 0 0;
-  color: #c7c7c7;
-  font-size: 13px;
-}
-
-.ask-llm-settings-layout {
+.record-save-debug-panel {
   display: grid;
-  grid-template-columns: 220px minmax(0, 1fr);
-  gap: 16px;
-  align-items: start;
-}
-
-.ask-llm-settings-sidebar {
-  position: sticky;
-  top: 18px;
-  display: grid;
-  gap: 8px;
-  padding: 8px;
+  gap: 5px;
+  max-height: 112px;
+  padding: 9px 10px;
+  overflow: auto;
   border: 1px solid #4b4b4b;
   border-radius: 8px;
   background: #242424;
 }
 
-.ask-llm-sidebar-link {
-  display: grid;
-  gap: 3px;
-  width: 100%;
-  padding: 10px 11px;
-  border: 1px solid transparent;
-  border-radius: 6px;
-  color: #f5f5f5;
-  background: transparent;
-  cursor: pointer;
-  font: inherit;
-  text-align: left;
-  text-decoration: none;
-}
-
-.ask-llm-sidebar-link:hover,
-.ask-llm-sidebar-link.is-active {
-  border-color: #5f5f5f;
-  background: #3b3b3b;
-}
-
-.ask-llm-sidebar-title {
-  font-size: 13px;
-  font-weight: 800;
-  line-height: 1.25;
-}
-
-.ask-llm-sidebar-description {
-  color: #c7c7c7;
-  font-size: 12px;
-  line-height: 1.3;
-}
-
-.ask-llm-settings-content {
-  display: grid;
-  gap: 16px;
-  min-width: 0;
-}
-
-.ask-llm-settings-card,
-.ask-llm-history-card {
-  border: 1px solid #4b4b4b;
-  border-radius: 8px;
-  background: #242424;
-}
-
-.ask-llm-settings-card {
-  padding: 14px 16px;
-}
-
-.ask-llm-api-key-summary {
-  display: grid;
-  gap: 14px;
-}
-
-.ask-llm-saved-key-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  padding: 10px 11px;
-  border: 1px solid #4b4b4b;
-  border-radius: 6px;
-  background: #303030;
-}
-
-.ask-llm-saved-key-label {
-  color: #c7c7c7;
-  font-size: 12px;
-  font-weight: 700;
-}
-
-.ask-llm-saved-key-value {
-  overflow: hidden;
-  color: #f5f5f5;
+.record-save-debug-line {
+  color: #d7d7d7;
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
     "Liberation Mono", monospace;
-  font-size: 13px;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.ask-llm-history-card {
-  overflow: hidden;
-}
-
-.ask-llm-section-title {
-  margin: 0;
-  font-size: 16px;
-  line-height: 1.2;
-}
-
-.ask-llm-muted {
-  margin-top: 3px;
-  color: #c7c7c7;
-  font-size: 12px;
-}
-
-.ask-llm-input {
-  box-sizing: border-box;
-  width: 100%;
-  padding: 10px 11px;
-  border: 1px solid #5f5f5f;
-  border-radius: 6px;
-  outline: none;
-  color: #f5f5f5;
-  background: #3b3b3b;
-  font-size: 13px;
-}
-
-.ask-llm-form-footer,
-.ask-llm-card-header {
-  justify-content: space-between;
-}
-
-.ask-llm-form-footer {
-  gap: 12px;
-}
-
-.ask-llm-actions {
-  display: flex;
-  gap: 8px;
-}
-
-.ask-llm-status {
-  min-height: 16px;
-  color: #c7c7c7;
-  font-size: 12px;
-}
-
-.ask-llm-status.is-error {
-  color: #fecaca;
-}
-
-.ask-llm-secondary-button,
-.ask-llm-primary-button {
-  height: 32px;
-  padding: 0 12px;
-}
-
-.ask-llm-secondary-button {
-  border: 1px solid #5f5f5f;
-  color: #f5f5f5;
-  background: #3b3b3b;
-}
-
-.ask-llm-primary-button {
-  border: 1px solid #f5f5f5;
-  color: #3b3b3b;
-  background: #f5f5f5;
-}
-
-.ask-llm-secondary-button:disabled,
-.ask-llm-primary-button:disabled {
-  cursor: not-allowed;
-  opacity: 0.45;
-}
-
-.ask-llm-card-header {
-  gap: 12px;
-  padding: 14px 16px;
-  border-bottom: 1px solid #4b4b4b;
-}
-
-.ask-llm-history-list {
-  min-height: 260px;
-  max-height: calc(100vh - 190px);
-  overflow-y: auto;
-}
-
-.ask-llm-empty-history {
-  padding: 28px;
-  color: #c7c7c7;
-  font-size: 14px;
-  text-align: center;
-}
-
-.ask-llm-history-item {
-  display: grid;
-  gap: 9px;
-  padding: 14px 16px;
-  border-bottom: 1px solid #4b4b4b;
-}
-
-.ask-llm-history-meta {
-  justify-content: space-between;
-  gap: 10px;
-  color: #c7c7c7;
-  font-size: 12px;
-}
-
-.ask-llm-history-source {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.ask-llm-history-date {
-  flex-shrink: 0;
-}
-
-.ask-llm-history-text {
-  color: #f5f5f5;
-  font-size: 14px;
-  font-weight: 700;
-  line-height: 1.4;
-}
-
-.ask-llm-history-answer {
-  color: #d7d7d7;
-  font-size: 13px;
-  line-height: 1.5;
-  white-space: pre-wrap;
-}
-
-.ask-llm-history-answer.is-error {
-  color: #fecaca;
-}
-
-@media (max-width: 720px) {
-  .ask-llm-settings-layout {
-    grid-template-columns: 1fr;
-  }
-
-  .ask-llm-settings-sidebar {
-    position: static;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .ask-llm-card-header,
-  .ask-llm-form-footer {
-    align-items: flex-start;
-    flex-direction: column;
-  }
-
-  .ask-llm-actions {
-    flex-wrap: wrap;
-  }
-}
-
-.ask-llm-bubble {
-  position: fixed;
-  z-index: 2147483647;
-  width: 100px;
-  padding: 0;
-  color: #3b3b3b;
-  background: #3b3b3b;
-  border-radius: 8px;
-  box-sizing: border-box;
-  font-family:
-    Inter,
-    ui-sans-serif,
-    system-ui,
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    sans-serif;
+  font-size: 11px;
+  line-height: 1.35;
   overflow-wrap: anywhere;
-}
-
-.ask-llm-bubble.is-expanded {
-  width: min(320px, calc(100vw - 24px));
-  padding: 6px;
-  box-shadow: 0 12px 30px rgb(0 0 0 / 18%);
-}
-
-.ask-llm-button {
-  width: 100%;
-  min-height: 34px;
-  padding: 7px 10px;
-  color: #f5f5f5;
-  background: #3b3b3b;
-  border: 0;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 13px;
-  font-weight: 600;
-  line-height: 1.2;
-}
-
-.ask-llm-button:hover:not(:disabled) {
-  background: #242424;
-}
-
-.ask-llm-button:disabled {
-  cursor: wait;
-  opacity: 0.75;
-}
-
-.ask-llm-loading {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-top: 8px;
-  padding: 10px;
-  border: 1px solid #4b4b4b;
-  border-radius: 6px;
-  color: #f5f5f5;
-  background: #242424;
-}
-
-.ask-llm-loading-spinner {
-  width: 18px;
-  height: 18px;
-  flex: 0 0 auto;
-  border: 2px solid #707070;
-  border-top-color: #f5f5f5;
-  border-radius: 50%;
-  animation: ask-llm-spin 0.75s linear infinite;
-}
-
-.ask-llm-loading-copy {
-  display: grid;
-  gap: 2px;
-  min-width: 0;
-}
-
-.ask-llm-loading-title {
-  font-size: 13px;
-  font-weight: 700;
-  line-height: 1.25;
-}
-
-.ask-llm-loading-detail {
-  color: #c7c7c7;
-  font-size: 12px;
-  line-height: 1.3;
-}
-
-@keyframes ask-llm-spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-.ask-llm-answer,
-.ask-llm-error {
-  max-height: 240px;
-  margin-top: 8px;
-  padding: 8px;
-  overflow: auto;
-  border-radius: 6px;
-  font-size: 13px;
-  line-height: 1.45;
-  white-space: pre-wrap;
-}
-
-.ask-llm-answer {
-  background: #f9fafb;
-  border: 1px solid #e5e7eb;
-}
-
-.ask-llm-error {
-  color: #991b1b;
-  background: #fef2f2;
-  border: 1px solid #fecaca;
 }

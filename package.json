@@ -1,9 +1,9 @@
 {
   "name": "record-and-save",
-  "displayName": "Record and save",
+  "displayName": "Record and Save",
   "version": "0.0.1",
-  "description": "record and save",
-  "author": "Plasmo Corp. <foss@plasmo.com>",
+  "description": "Record and save the active Chrome tab.",
+  "author": "madhav2348",
   "scripts": {
     "dev": "plasmo dev",
     "build": "plasmo build",

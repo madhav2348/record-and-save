@@ -11,7 +11,7 @@ const activeDownloads = new Map<
 >()
 
 const debug = (...args: unknown[]) => {
-  console.debug("[record-and-save:background]", ...args)
+  console.log("[record-and-save:background]", ...args)
 }
 
 type RecordingMessage = {
@@ -19,6 +19,7 @@ type RecordingMessage = {
   mimeType?: string
   size?: number
   type:
+    | "GET_RECORDING_STATUS"
     | "START_TAB_RECORDING"
     | "STOP_TAB_RECORDING"
     | "OFFSCREEN_RECORDING_READY"
@@ -207,9 +208,24 @@ const stopTabRecording = async () => {
   }
 }
 
+const getRecordingStatus = async () => {
+  if (!(await hasOffscreenDocument())) {
+    return { recording: false }
+  }
+
+  const response = await chrome.runtime.sendMessage({
+    type: "OFFSCREEN_GET_RECORDING_STATUS"
+  })
+
+  debug("Offscreen status response", response)
+
+  return { recording: response?.recording === true }
+}
+
 chrome.runtime.onMessage.addListener(
   (message: RecordingMessage, _sender, sendResponse) => {
     if (
+      message?.type !== "GET_RECORDING_STATUS" &&
       message?.type !== "START_TAB_RECORDING" &&
       message?.type !== "STOP_TAB_RECORDING" &&
       message?.type !== "OFFSCREEN_RECORDING_READY"
@@ -219,6 +235,12 @@ chrome.runtime.onMessage.addListener(
 
     const run = async () => {
       debug("Received message", { type: message.type })
+
+      if (message.type === "GET_RECORDING_STATUS") {
+        const status = await getRecordingStatus()
+        sendResponse({ ok: true, ...status })
+        return
+      }
 
       if (message.type === "START_TAB_RECORDING") {
         await startTabRecording()
