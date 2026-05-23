@@ -7,7 +7,10 @@
   "scripts": {
     "dev": "plasmo dev",
     "build": "plasmo build",
-    "package": "plasmo package"
+    "package": "plasmo package",
+    "web:dev": "npm --prefix apps/website run dev",
+    "web:build": "npm --prefix apps/website run build",
+    "web:preview": "npm --prefix apps/website run preview"
   },
   "dependencies": {
     "plasmo": "0.90.5",
